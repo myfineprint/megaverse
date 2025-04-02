@@ -21,11 +21,11 @@ class DrawLogo
         case cell
         when 'POLYANET'
           PolyanetEditor.add(col_index, row_index)
-        when /_COMETH/
+        when /COMETH/
           direction = T.must(cell.split('_').first).downcase
 
           ComethEditor.add(col_index, row_index, { 'direction' => direction })
-        when /_SOLOON/
+        when /SOLOON/
           color = T.must(cell.split('_').first).downcase
 
           SoloonEditor.add(col_index, row_index, { 'color' => color })

@@ -55,3 +55,11 @@ Style/Encoding:
 # chaining method calls on multiline blocks
 Style/MultilineBlockChain:
   Enabled: false
+
+Metrics/BlockLength:
+  AllowedMethods:
+   # Specs
+    - describe
+    - context
+    - let
+    - it
