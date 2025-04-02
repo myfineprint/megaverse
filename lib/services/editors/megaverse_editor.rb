@@ -2,10 +2,9 @@
 
 require 'json'
 require 'net/http'
-require 'dotenv/load' 
+require 'dotenv/load'
 require 'sorbet-runtime'
 require_relative '../megaverse'
-
 
 class MegaverseEditor
   extend T::Sig
@@ -13,19 +12,23 @@ class MegaverseEditor
   CANDIDATE_ID = T.let(ENV.fetch('CANDIDATE_ID'), String)
 
   sig do
-    params(column: Integer, row: Integer, extra_params: T::Hash[String, String]).returns(Net::HTTPResponse)
-  end 
+    params(
+      column: Integer,
+      row: Integer,
+      extra_params: T::Hash[String, String]
+    ).returns(Net::HTTPResponse)
+  end
   def self.add(column, row, extra_params = {})
-    params = {'column' => column, 'row' => row, 'candidateId' => CANDIDATE_ID}.merge(extra_params)
-  
+    params = build_params(column, row, extra_params)
+
     post(params)
   end
 
   sig do
     params(column: Integer, row: Integer).returns(T.nilable(Net::HTTPResponse))
-  end 
+  end
   def self.remove(column, row)
-    params = {'column' => column, 'row' => row, 'candidateId' => CANDIDATE_ID}
+    params = build_params(column, row)
 
     delete(params)
   end
@@ -36,7 +39,9 @@ class MegaverseEditor
   end
 
   sig do
-    params(params: T::Hash[String, T.any(Integer, String)]).returns(Net::HTTPResponse)
+    params(params: T::Hash[String, T.any(Integer, String)]).returns(
+      Net::HTTPResponse
+    )
   end
   def self.post(params)
     uri = URI.parse(api)
@@ -45,7 +50,9 @@ class MegaverseEditor
   end
 
   sig do
-    params(params: T::Hash[String, Integer]).returns(T.nilable(Net::HTTPResponse))
+    params(params: T::Hash[String, T.any(Integer, String)]).returns(
+      T.nilable(Net::HTTPResponse)
+    )
   end
   def self.delete(params)
     uri = URI(api)
@@ -59,9 +66,26 @@ class MegaverseEditor
 
     begin
       response = http.request(request)
-      response.is_a?(Net::HTTPSuccess) ? response : puts("Error: #{response.code} #{response.message}")
+      if response.is_a?(Net::HTTPSuccess)
+        response
+      else
+        puts("Error: #{response.code} #{response.message}")
+      end
     end
   end
 
-  private_class_method :api, :post, :delete
+  sig do
+    params(
+      column: Integer,
+      row: Integer,
+      extra_params: T::Hash[String, String]
+    ).returns(T::Hash[String, T.any(Integer, String)])
+  end
+  def self.build_params(column, row, extra_params = {})
+    { 'column' => column, 'row' => row, 'candidateId' => CANDIDATE_ID }.merge(
+      extra_params
+    )
+  end
+
+  private_class_method :api, :post, :delete, :build_params
 end
