@@ -10,8 +10,6 @@ class DrawCross
   sig { void }
   def initialize
     @megaverse = T.let(Megaverse.map, T::Array[T::Array[String]])
-    @draw_start = T.let(megaverse_size - (megaverse_size - 2), Integer)
-    @draw_end = T.let(megaverse_size - 2, Integer)
   end
 
   sig { returns(T::Range[Integer]) }
@@ -30,7 +28,15 @@ class DrawCross
     end
   end
 
-  private
+  sig { returns(Integer) }
+  def draw_start
+    megaverse_size > 4 ? 2 : 0
+  end
+
+  sig { returns(Integer) }
+  def draw_end
+    megaverse_size > 4 ? megaverse_size - 3 : megaverse_size - 1
+  end
 
   sig { returns(Integer) }
   def megaverse_size
@@ -39,10 +45,4 @@ class DrawCross
 
   sig { returns(T::Array[T::Array[String]]) }
   attr_reader :megaverse
-
-  sig { returns(Integer) }
-  attr_reader :draw_start
-
-  sig { returns(Integer) }
-  attr_reader :draw_end
 end

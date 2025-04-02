@@ -8,12 +8,12 @@ class ComethEditor < MegaverseEditor
       column: Integer,
       row: Integer,
       extra_params: T::Hash[String, String]
-    ).returns(Net::HTTPResponse)
+    ).returns(T.nilable(Net::HTTPResponse))
   end
   def self.add(column, row, extra_params = {})
     direction = extra_params.fetch('direction', nil)
 
-    raise NotImplementedError if direction.nil?
+    raise ArgumentError, "'direction' is a required parameter" if direction.nil?
 
     super(column, row, { 'direction' => direction })
   end

@@ -16,7 +16,7 @@ class MegaverseEditor
       column: Integer,
       row: Integer,
       extra_params: T::Hash[String, String]
-    ).returns(Net::HTTPResponse)
+    ).returns(T.nilable(Net::HTTPResponse))
   end
   def self.add(column, row, extra_params = {})
     params = build_params(column, row, extra_params)
@@ -40,7 +40,7 @@ class MegaverseEditor
 
   sig do
     params(params: T::Hash[String, T.any(Integer, String)]).returns(
-      Net::HTTPResponse
+      T.nilable(Net::HTTPResponse)
     )
   end
   def self.post(params)

@@ -8,12 +8,12 @@ class SoloonEditor < MegaverseEditor
       column: Integer,
       row: Integer,
       extra_params: T::Hash[String, String]
-    ).returns(Net::HTTPResponse)
+    ).returns(T.nilable(Net::HTTPResponse))
   end
   def self.add(column, row, extra_params = {})
     color = extra_params.fetch('color', nil)
 
-    raise NotImplementedError if color.nil?
+    raise ArgumentError, "'color' is a required parameter" if color.nil?
 
     super(column, row, { 'color' => color })
   end
