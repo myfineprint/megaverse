@@ -13,7 +13,7 @@ class Megaverse
     T.let("#{ENV.fetch('BASE_URL')}/map/#{CANDIDATE_ID}/goal".freeze, String)
 
   sig { returns(T::Array[T::Array[String]]) }
-  def self.megaverse
+  def self.map
     fetch_megaverse
   end
 

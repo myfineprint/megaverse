@@ -1,3 +1,57 @@
 require: rubocop-sorbet
 inherit_from: .rubocop_todo.yml
 
+# Automatically enable any new cops (rules) introduced in future versions
+AllCops:
+  NewCops: enable
+
+# Enforce sorted gems in the Gemfile
+Bundler/OrderedGems:
+  Enabled: false
+
+# Ensure spacing inside hash braces is consistent
+Layout/SpaceInsideHashLiteralBraces:
+  EnforcedStyle: space
+
+# Ensure spacing inside parentheses is consistent
+Layout/SpaceInsideParens:
+  EnforcedStyle: no_space
+
+# Remove trailing whitespace automatically
+Layout/TrailingWhitespace:
+  Enabled: true
+
+# Ensure private/protected modifiers are correctly placed
+Lint/IneffectiveAccessModifier:
+  Enabled: true
+Lint/UselessAccessModifier:
+  Enabled: true
+
+# Method length limit (adjust if necessary)
+Metrics/MethodLength:
+  Max: 14
+
+# Enforce accessor naming conventions
+Naming/AccessorMethodName:
+  Enabled: true
+
+# Requires every class or module to have a top-level comment
+Style/Documentation:
+  Enabled: false
+
+# Force RuboCop to use single quotes
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+  ConsistentQuotesInMultiline: true
+
+# Automatically freeze string literals (if using Ruby 2.3+)
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+# encoding: utf-8
+Style/Encoding:
+  Enabled: false
+
+# chaining method calls on multiline blocks
+Style/MultilineBlockChain:
+  Enabled: false

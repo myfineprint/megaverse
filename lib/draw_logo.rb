@@ -11,7 +11,7 @@ class DrawLogo
 
   sig { void }
   def initialize
-    @megaverse = T.let(Megaverse.megaverse, T::Array[T::Array[String]])
+    @megaverse = T.let(Megaverse.map, T::Array[T::Array[String]])
   end
 
   sig { returns(T::Array[T::Array[String]]) }

@@ -1,13 +1,11 @@
-# frozen_string_literal: true
-
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
 # gem "rails"
 
+gem 'dotenv'
 gem 'sorbet'
 gem 'sorbet-runtime'
 gem 'tapioca'
-gem 'dotenv'
 
 group :development do
   gem 'rubocop', require: false
