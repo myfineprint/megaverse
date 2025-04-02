@@ -46,3 +46,9 @@ class DrawCross
   sig { returns(T::Array[T::Array[String]]) }
   attr_reader :megaverse
 end
+
+if __FILE__ == $PROGRAM_NAME
+  cross = DrawCross.new
+  cross.draw_cross
+  puts 'Cross generated!'
+end

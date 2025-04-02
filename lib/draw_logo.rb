@@ -39,3 +39,9 @@ class DrawLogo
   sig { returns(T::Array[T::Array[String]]) }
   attr_reader :megaverse
 end
+
+if __FILE__ == $PROGRAM_NAME
+  logo = DrawLogo.new
+  logo.generate_logo
+  puts 'Logo generated!'
+end
